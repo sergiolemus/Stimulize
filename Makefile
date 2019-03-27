@@ -1,6 +1,6 @@
 CXX=g++
 CXXFLAGS=-std=c++11 -O2
-MAIN=STIMULIZE
+MAIN=stimulize
 
 $(MAIN): $(MAIN).cpp
 	$(CXX) -o $@ $^ $(CXXFLAGS) $(LDFLAGS)
