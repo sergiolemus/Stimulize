@@ -1,22 +1,28 @@
 # Stimulize
 
 ## Purpose:
-The goal of this program is to make a great discomfort something comfortable. In the intent of making *EE457 — Digital Integrated Circuits* easier by means of automating the process of toggling *IRSIM* inputs on *ELECTRIC*.
+The goal of this program is to make a great discomfort something comfortable. The intent is to make *EE457 — Digital Integrated Circuits* easier by means of automating the process of toggling *IRSIM* inputs on *ELECTRIC*. Toggling inputs in *IRSIM* using the built in vecotr commands will not make the boxes, but using commands *h* and *l* will. This program acts as a wrapper to do that easily.
 
-This program will take input arguments and then can be piped to **.cmd** file, which can be imported into
-electric by going to **TOOLS->Simulation (Built-in)->Restore Stimuli From Disk ..**
+This program can of course also be used to generate command files for terminal *IRSIM*.
 
-This program sets the analyzer window to the desired nodes you wish to track. Then, it generates a sequence of *IRSIM* commands to toggle a desired set of inputs **n** starting at **0** and ending at **(2^n)-1**. It can also generate *IRSIM* commands for particular set of binary sequences the user desires.
+This program will take input arguments and then can be piped to *.cmd* file, which can be imported into
+*ELECTRIC* by going to *TOOLS->Simulation (Built-in)->Restore Stimuli From Disk ..*
 
-Ex: If you have 3 inputs [ A, B, C ], the program will generate commands to toggle them from [ 0, 0, 0 ] up to [ 1, 1, 1 ], that being from 0 to 7.
+This program sets the analyzer window to the desired nodes you wish to track. Then, it generates a sequence of *IRSIM* commands to toggle a desired set of inputs **n** going through all **(2^n)-1** states. It can also generate *IRSIM* commands for particular test sequence of inputs instead.
+
+The default mode is to scroll through inputs using *GRAY CODE*, changing only one bit at a time so the outputs are more stable. It will still toggle through all input combinations.
+
+Ex: If you have 3 inputs [ A, B, C ], the program will generate commands to toggle them from [ 0, 0, 0 ] up to [ 1, 0, 0 ], that being from 0 to 7.
 
 Ex: If you have 4 inputs [ A, B, C, D ], and you wish to test [ 0, 0, 1, 1 ], [ 1, 1, 1, 0 ], and [ 0, 0, 0, 0 ], it will generate commands for only those three as desired.
 
 ## Compile:
-Clone the repository and run **make && sudo make install** from the directory. Special thanks to
+Clone the repository and run **make && make install** from the directory. Special thanks to
 **Joseph** for this convenience. This will compile the program and link it to your **$PATH**
+Depending on your system, *make install* may require administrative privilege.
+This program may be maintained and updated on git. You can pull the changes, and re run the same commands to update your system.
 
-    $ make && sudo make install
+    $ make && make install
 
 ## Usage:
 
@@ -36,7 +42,7 @@ Clone the repository and run **make && sudo make install** from the directory. S
 
 ## Examples:
 
-**Example 1:** stepsize: 5ns, analyzer: [ A, B, OUT ], vector: [ A, B ], from [ 0, 0 ] to [ 1, 1 ].
+**Example 1:** stepsize: 5ns, analyzer: [ A, B, OUT ], vector: [ A, B ], from [ 0, 0 ] to [ 1, 0 ] through *Grays Code*.
 Pipe into *test.cmd*
 
     $ stimulize -a A B OUT -v A B > test.cmd
@@ -44,3 +50,11 @@ Pipe into *test.cmd*
 **Example 2:** stepsize: 50ns, analyzer: [ I1, I2, I3, O1, O2 ], vector: [ I1, I2, I3 ] = [ 0, 0, 0 ] [ 0, 1, 0 ] [ 1, 1, 1 ]
 
     $ stimulize -a I1 I2 I3 O1 O2 -v I1 I2 I3 -s 50 -t 000 010 111
+
+**Example 3:** print help
+    $ stimulize -h
+
+## References:
+*ELECTRIC*  https://www.staticfreesoft.com/jmanual/
+*IRSIM*     http://opencircuitdesign.com/irsim/reference.html
+*GRAY CODE* https://en.wikipedia.org/wiki/Gray_code
