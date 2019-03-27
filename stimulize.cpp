@@ -29,18 +29,9 @@
 
 //function to convert a binary number to grays number
 //gray number only toggle 1 bit at a time so should give more stable output shapes
-unsigned int binaryToGray( unsigned int bnum, int bits)
+unsigned int binaryToGray( unsigned int bnum )
 {
-    unsigned int grayNum = 0;
-    //cary MSB
-    grayNum |= ( bnum & ( 1 << (bits - 1 ) ) );
-    //g_i = b_i XOR b_(i+1)
-    for ( int i = 0; i < bits - 1; i++ )
-    {
-        grayNum |=  ( ( bnum & ( 1 << i ) ) ^ ( ( bnum & ( 1 << (i + 1) ) ) >> 1 ) ) & ( 1 << i );
-    }
-
-    return grayNum;
+    return ( ( bnum ) ^ ( bnum >> 1 ) );
 }
 
 //print the current state as a comment and then step forward in the simulation
@@ -119,7 +110,7 @@ void generateCommands( char** argv, int argc, int a_index, int a_nodes, int v_in
         for( unsigned int bnum = 0; bnum < count_to; bnum++ )
         {
 
-            unsigned int gnum = binaryToGray( bnum, v_nodes );
+            unsigned int gnum = binaryToGray( bnum );
 
             low = false;
             high = false;
