@@ -24,6 +24,22 @@
 
 //./STIMULIZE -a IN_1 IN_2 IN_3 OUT_A OUT_B -v IN_1 IN_2 IN_3 -s 10
 
+//function to convert a binary number to grays number
+//gray number only toggle 1 bit at a time so should give more stable output shapes
+unsigned int binaryToGray( unsigned int bnum, int bits)
+{
+    unsigned int grayNum = 0;
+    //cary MSB
+    grayNum |= ( bnum & ( 1 << (bits - 1 ) ) );
+    //g_i = b_i XOR b_(i+1)
+    for ( int i = 0; i < bits - 1; i++ )
+    {
+        grayNum |=  ( ( bnum & ( 1 << i ) ) ^ ( ( bnum & ( 1 << (i + 1) ) ) >> 1 ) ) & ( 1 << i );
+    }
+
+    return grayNum;
+}
+
 // FUNCTION TO GENERATE VECTORIZED INPUTS
 void generateCommands( char** argv, int a_index, int a_nodes, int v_index, int v_nodes,
                       int t_index, int t_nodes, bool t, int s_index )
@@ -56,7 +72,8 @@ void generateCommands( char** argv, int a_index, int a_nodes, int v_index, int v
     for( int i = 0; i < a_nodes; i++ )
     {
         std::cout << argv[ a_index + i ] << " ";
-    }   std::cout << std::endl;
+    }
+    std::cout << std::endl << std::endl;
     
     v_index++;
     for( int i = 0; i < v_nodes; i++ )
@@ -66,7 +83,7 @@ void generateCommands( char** argv, int a_index, int a_nodes, int v_index, int v
         toggle[ i ] = false;
     }
     
-    //default sequence (count through all combinations)
+    //default sequence (count through all combinations in gray)
     if( !t )
     {
         unsigned int bit = 1;
@@ -76,21 +93,27 @@ void generateCommands( char** argv, int a_index, int a_nodes, int v_index, int v
         for( int n = 0; n < v_nodes; n++ )
         {
             std::cout << inputs[ n ] << " ";
-        }   std::cout << std::endl;
-        
-        std::cout << "s" << std::endl;
-        
-        for( unsigned int i = 1; i < count_to; i++ )
+        }
+        std::cout << std::endl << "s" << std::endl << std::endl;
+
+        for( unsigned int bnum = 1; bnum < count_to; bnum++ )
         {
+
+            unsigned int gnum = binaryToGray( bnum, v_nodes );
+
             low = false;
             high = false;
-            
-            bit = 1;
-            shift_left = 0;
-            
+
             for( int n = v_nodes - 1; n >= 0; n-- )
             {
-                if( ( ( i & bit ) >> shift_left ) != input_values[ n ] )
+                int mask        = 1 << ( v_nodes - 1 - n );
+                int shift_right = v_nodes - 1 - n;
+                
+                //count in binary
+                //if( ( ( bnum & mask ) >> ( shift_right ) != input_values[ n ] ) )
+
+                //count in gray code
+                if( ( ( gnum & mask ) >> ( shift_right ) != input_values[ n ] ) )
                 {
                     toggle[ n ] = true;
                     
@@ -108,8 +131,6 @@ void generateCommands( char** argv, int a_index, int a_nodes, int v_index, int v
                     toggle[ n ] = false;
                 }
 
-                bit = bit << 1;
-                shift_left++;
             }
             
             if( low )
@@ -118,7 +139,7 @@ void generateCommands( char** argv, int a_index, int a_nodes, int v_index, int v
                 
                 for( int n = 0; n < v_nodes; n++ )
                 {
-                    if( toggle[ n ] && input_values[ n ] == 1 )
+                    if( toggle[ n ] && ( input_values[ n ] == 1 ) )
                     {
                         toggle[ n ] = false;
                         input_values[ n ] = 0;
@@ -135,7 +156,7 @@ void generateCommands( char** argv, int a_index, int a_nodes, int v_index, int v
                 
                 for( int n = 0; n < v_nodes; n++ )
                 {
-                    if( toggle[ n ] && input_values[ n ] == 0 )
+                    if( toggle[ n ] && ( input_values[ n ] == 0 ) )
                     {
                         toggle[ n ] = false;
                         input_values[ n ] = 1;
@@ -146,10 +167,12 @@ void generateCommands( char** argv, int a_index, int a_nodes, int v_index, int v
                 std::cout << std::endl;
             }
             
-            std::cout << "s" << std::endl;
+            std::cout << "s" << std::endl << std::endl;
         }
         
+        //end by making all inputs low
         std::cout << "l ";
+
         for( int n = 0; n < v_nodes; n++ )
         {
             std::cout << inputs[ n ] << " ";
@@ -157,6 +180,7 @@ void generateCommands( char** argv, int a_index, int a_nodes, int v_index, int v
         
         std::cout << "s" << std::endl;
     }
+    
     //test sequence
     else
     {
