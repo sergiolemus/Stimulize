@@ -1,6 +1,7 @@
+#include <cstdlib>
 #include <iostream>
 #include <string>
-
+#include <vector>
 // PROGRAM TO VECTORIZE IRSIM INPUTS
 
 // REQUIRED FLAGS:
@@ -27,9 +28,9 @@
 void generateCommands( char** argv, int a_index, int a_nodes, int v_index, int v_nodes,
                       int t_index, int t_nodes, bool t, int s_index )
 {
-    std::string* inputs = new std::string[ v_nodes ];
-    char* input_values = new char[ v_nodes ];
-    bool* toggle = new bool[ v_nodes ];
+    std::vector<std::string> inputs      ( v_nodes );
+    std::vector<char>        input_values( v_nodes );
+    std::vector<bool>        toggle      ( v_nodes );
     
     bool low = false;
     bool high = false;
@@ -65,6 +66,7 @@ void generateCommands( char** argv, int a_index, int a_nodes, int v_index, int v
         toggle[ i ] = false;
     }
     
+    //default sequence (count through all combinations)
     if( !t )
     {
         unsigned int bit = 1;
@@ -155,6 +157,7 @@ void generateCommands( char** argv, int a_index, int a_nodes, int v_index, int v
         
         std::cout << "s" << std::endl;
     }
+    //test sequence
     else
     {
         std::string arg;
@@ -271,10 +274,6 @@ void generateCommands( char** argv, int a_index, int a_nodes, int v_index, int v
             std::cout << "s" << std::endl;
         }
     }
-    
-    delete[] inputs;
-    delete[] input_values;
-    delete[] toggle;
 }
 
 void show_usage()
@@ -571,5 +570,3 @@ int main( int argc, char** argv )
     
     return 0;
 }
-
-
