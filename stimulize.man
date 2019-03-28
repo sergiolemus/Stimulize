@@ -54,7 +54,7 @@ List which nodes will be controlled as a vector input to the circuit. Arguments 
 .SH EXAMPLES
 .PP
 .br
-Stepsize: default - 5ns, View A,B,C,OUT in the analyzer, vectorize A,B,C as input, and step through all combinations in
+Stepsize: default - 5ns, View A,B,C,OUT in the analyzer, Bectorize A,B,C as inputs, and step through all combinations in
 Gray Code order.
 .br
 \fI% stimulize \-a A B C OUT \-v A B C\fR
@@ -123,8 +123,8 @@ l A B C
 .br
 s
 .PP
-Stepsize: 50ns, View I0,I1,I2,I3,O0,O1 in the analyzer, vectorize I1,I2,I3,I4 as input, and test the
-specific cases [I0,I1,I2,I3] = [0,0,0,0] [1,1,1,0] [0,0,1,1] [1,1,1,1].
+Stepsize: 50ns, View I0,I1,I2,I3,O0,O1 in the analyzer, Vectorize I0,I1,I2,I3 as inputs, and step through
+the specific specific cases [I0,I1,I2,I3] = [0,0,0,0] [1,1,1,0] [0,0,1,1] [1,1,1,1].
 .br
 \fI% stimulize \-a I0 I1 I2 I3 O0 O1 \-v I0 I1 I2 I3 -s 50 -t 0000 1110 0011 1111\fR
 .br
