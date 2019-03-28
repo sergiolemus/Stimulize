@@ -4,7 +4,7 @@ BIN_DIRECTORY=/usr/local/bin
 MAN_DIRECTORY=/usr/local/share/man
 MAIN=stimulize
 
-ifneq ($(wildcard $(MAN_DIRECTORY)/man100),)
+ifneq ($(wildcard $(MAN_DIRECTORY)/man1),)
 	MAN_DIRECTORY=/usr/local/share/man/man1
 endif
 
@@ -16,10 +16,11 @@ $(MAIN): $(MAIN).cpp
 install: $(MAIN) 
 	cp $(MAIN) $(BIN_DIRECTORY)/$(MAIN)
 	cp $(MAIN).man $(MAN_DIRECTORY)/$(MAIN).1
+	gzip $(MAN_DIRECTORY)/$(MAIN).1
 
 clean:
 	rm -f $(MAIN)
 
 uninstall:
 	rm -f $(BIN_DIRECTORY)/$(MAIN)
-	rm -f $(MAN_DIRECTORY)/$(MAIN).1
+	rm -f $(MAN_DIRECTORY)/$(MAIN).1.gz
