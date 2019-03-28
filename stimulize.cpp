@@ -390,7 +390,7 @@ void show_usage()
               << "  stepsize: 5ns, analyzer: [A,B,C,OUT], vector: [A,B,C], from [0,0] to [1,1,1]" << std::endl << std::endl
               << "$ stimulize -a A B C OUT -v A B" << std::endl << std::endl
               << "  stepsize: 50ns, analyzer: [I0,I1,I2,I3,O0,O1], vector: [I0,I1,I2,I3] = [0,0,0,0] [1,1,1,0] [0,0,1,1] [1,1,1,1]" << std::endl
-              << "$ stimulize -a I0 I1 I2 I3 O0 O1 -v I0 I1 I2 I3 0000  1110  0011 1111 > test.cmd" << std::endl << std::endl
+              << "$ stimulize -a I0 I1 I2 I3 O0 O1 -v I0 I1 I2 I3 -t 0000  1110  0011 1111 > test.cmd" << std::endl << std::endl
               << "If this program isinstalled on your system, use " << std::endl
               << "$ man stimulize"   << std::endl
               << "for more / better formatted details" << std::endl << std::endl;

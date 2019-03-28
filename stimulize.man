@@ -141,6 +141,7 @@ analyzer I0 I1 I2 I3 O0 O1
 | VECTOR: [I0,I1,I2,I3] = [0,0,0,0]
 .br
 l I0 I1 I2 I3 
+.br
 s
 .br
 | VECTOR: [I0,I1,I2,I3] = [1,1,1,0]
