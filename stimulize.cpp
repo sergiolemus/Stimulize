@@ -124,6 +124,7 @@ void generateCommands( char** argv, int argc, int a_index, int a_nodes, int v_in
         std::cout << "stepsize " << argv[ s_index + 1 ] << std::endl;
     }
     
+    a_index++;
     std::cout << "analyzer ";
     for( int i = 0; i < a_nodes; i++ )
     {
