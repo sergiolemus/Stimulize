@@ -115,11 +115,6 @@ void generateCommands( char** argv, int argc, int a_index, int a_nodes, int v_in
     
     unsigned int count_to = 1 << v_nodes;
     
-    for( int i = 0; i < a_nodes; i++ )
-    {
-        std::cout << argv[ a_index + i ] << " ";
-    }   std::cout << std::endl;
-    
     if( s_index == -1 )
     {
         std::cout << "stepsize 5" << std::endl;
