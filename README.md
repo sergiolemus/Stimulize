@@ -50,7 +50,8 @@ This program may be maintained and updated on git. You can pull the changes, and
 
     $ stimulize -a I1 I2 I3 O1 O2 -v I1 I2 I3 -s 50 -t 0000 1110 0011
 
-**Example 3:** print help
+**Example 3:** see stimulize help
+
     $ stimulize -h
 
 ## References:
