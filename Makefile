@@ -18,9 +18,10 @@ $(MAIN): $(MAIN).cpp
 	$(CXX) -o $@ $^ $(CXXFLAGS) $(LDFLAGS)
 
 install: $(MAIN) 
-	cp $(MAIN) $(BIN_DIRECTORY)/$(MAIN)
-	cp $(MAIN).man $(MAN_DIRECTORY)/$(MAIN).1
-	gzip $(MAN_DIRECTORY)/$(MAIN).1
+	cp -f $(MAIN) $(BIN_DIRECTORY)/$(MAIN)
+	@if [ ! -d $(MAN_DIRECTORY) ]; then mkdir $(MAN_DIRECTORY); fi
+	cp -f $(MAIN).man $(MAN_DIRECTORY)/$(MAIN).1
+	gzip -f $(MAN_DIRECTORY)/$(MAIN).1
 
 clean:
 	rm -f $(MAIN)
