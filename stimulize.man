@@ -54,7 +54,7 @@ List which nodes will be controlled as a vector input to the circuit. Arguments 
 .SH EXAMPLES
 .PP
 .br
-Stepsize: default - 5ns, View A,B,C,OUT in the analyzer, Bectorize A,B,C as inputs, and step through all combinations in
+Stepsize: default - 5ns, View A,B,C,OUT in the analyzer, Vectorize A,B,C as inputs, and step through all combinations in
 Gray Code order.
 .br
 \fI% stimulize \-a A B C OUT \-v A B C\fR
