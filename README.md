@@ -16,9 +16,9 @@ The default mode is to scroll through inputs using **Gray Code**, changing only 
 
 **Example 2:** If you have 4 inputs [ I1, I2, I3, I4 ], and you wish to test [ 0, 0, 0, 0 ] [ 1, 1, 1, 0 ], and [ 0, 0, 1, 1 ], it will generate commands for only those three as desired.
 
-## Compile:
+## Compile & Install:
 Clone the repository and run **make && make install** from the directory. Special thanks to
-**Joseph** for this convenience. This will compile the program and link it to your **$PATH**, and install the man page
+**Joseph** for this convenience. This will compile the program and link it to your **$PATH**, and install the man page.
 Depending on your system, *make install* may require administrative privileges.
 This program may be maintained and updated on git. You can pull the changes, and re run the same commands to update your system.
 
@@ -28,16 +28,18 @@ To uninstall the program, run:
 
     $ make clean && make uninstall
 
-## Man Page:
-Upon runing **make install**, the man page should be copied to your local manpage directory. 
-This program assume the directory is
-    
-    /usr/local/share/man/man1
-
-If that is not the case, you will have to either adjsut your **$MANPATH** or change the make file.
+### Man Page:
+Upon runing **make install**, the man page should be copied to your local manpage directory. but if it fails may have to either 
+adjsut your **$MANPATH** or change the make file.
 If everything succeeds you can can now see examples and more detailed information using
 
     man stimulize
+
+If installation of the manpage fails, you can still see the manpage locally by running: 
+
+    man ./stimulize.man
+
+while in this directory.
 
 ## Usage:
 
@@ -55,6 +57,8 @@ If everything succeeds you can can now see examples and more detailed informatio
 
 -t,--test {test_seq ..}: binary sequences to toggle the vector, default is 0 to ( 2^n ) - 1.
 
+-h, run this flag alone for help. Not as nicely formatted as man, but functional.
+
 ## Examples:
 
 **Example 1:** Stepsize: default - 5ns, View A,B,C,OUT in the analyzer, vectorize A,B,C as
@@ -69,10 +73,6 @@ input, and step through all combinations in Gray Code order.
 Pipe the output to test.cmd
 
     $ stimulize -a I0 I1 I2 I3 O0 O1 -v I0 I1 I2 I3 -s 50  -t  0000  1110  0011 1111 > test.cmd
-
-**Example 3:** see stimulize help
-
-    $ stimulize -h
 
 ## References:
 
