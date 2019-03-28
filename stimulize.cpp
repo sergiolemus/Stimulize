@@ -137,7 +137,7 @@ void generateCommands( char** argv, int argc, int a_index, int a_nodes, int v_in
     {
         inputs[ i ] = argv[ v_index + i ];
         input_values[ i ] = 0;
-        toggle[ i ] = true;
+        toggle[ i ] = false;
     }
     
     //default sequence (count through all combinations in gray)
