@@ -17,7 +17,7 @@ all: $(MAIN)
 $(MAIN): $(MAIN).cpp
 	$(CXX) -o $@ $^ $(CXXFLAGS) $(LDFLAGS)
 
-install: $(MAIN) 
+install: all 
 	cp -f $(MAIN) $(BIN_DIRECTORY)/$(MAIN)
 	@if [ ! -d $(MAN_DIRECTORY) ]; then mkdir $(MAN_DIRECTORY); fi
 	cp -f $(MAIN).man $(MAN_DIRECTORY)/$(MAIN).1
