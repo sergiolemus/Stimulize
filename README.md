@@ -5,16 +5,16 @@ The goal of this program is to make a great discomfort something comfortable. Th
 
 This program can of course also be used to generate command files for terminal *IRSIM*.
 
-This program will take input arguments and then can be piped to *.cmd* file, which can be imported into
+This program will take input arguments and can then be piped to *.cmd* file, which can be imported into
 *ELECTRIC* by going to *TOOLS->Simulation (Built-in)->Restore Stimuli From Disk ..*
 
 This program sets the analyzer window to the desired nodes you wish to track. Then, it generates a sequence of *IRSIM* commands to toggle a desired set of inputs **n** going through all **(2^n)-1** states. It can also generate *IRSIM* commands for particular test sequence of inputs instead.
 
-The default mode is to scroll through inputs using *GRAY CODE*, changing only one bit at a time so the outputs are more stable. It will still toggle through all input combinations.
+The default mode is to scroll through inputs using **Gray Code**, changing only one bit at a time so the outputs are more stable. It will still toggle through all input combinations.
 
-Ex: If you have 3 inputs [ A, B, C ], the program will generate commands to toggle them from [ 0, 0, 0 ] up to [ 1, 0, 0 ], that being from 0 to 7.
+**Example 1:** If you have 3 inputs [ A, B, C ], the program will generate commands to toggle them from [ 0, 0, 0 ] to [ 1, 1, 1 ], in **Gray Code** order.
 
-Ex: If you have 4 inputs [ A, B, C, D ], and you wish to test [ 0, 0, 1, 1 ], [ 1, 1, 1, 0 ], and [ 0, 0, 0, 0 ], it will generate commands for only those three as desired.
+**Example 2:** If you have 4 inputs [ I1, I2, I3, I4 ], and you wish to test [ 0, 0, 0, 0 ] [ 1, 1, 1, 0 ], and [ 0, 0, 1, 1 ], it will generate commands for only those three as desired.
 
 ## Compile:
 Clone the repository and run **make && make install** from the directory. Special thanks to
@@ -42,19 +42,21 @@ This program may be maintained and updated on git. You can pull the changes, and
 
 ## Examples:
 
-**Example 1:** stepsize: 5ns, analyzer: [ A, B, OUT ], vector: [ A, B ], from [ 0, 0 ] to [ 1, 0 ] through *Grays Code*.
-Pipe into *test.cmd*
+**Example 1:** stepsize: 5ns, analyzer: [ A, B, C, OUT ], vector: [ A, B, C ], from [ 0, 0, 0 ] to [ 1, 1, 1 ] in *Gray Code* order, and pipe into *test.cmd*
 
     $ stimulize -a A B OUT -v A B > test.cmd
 
-**Example 2:** stepsize: 50ns, analyzer: [ I1, I2, I3, O1, O2 ], vector: [ I1, I2, I3 ] = [ 0, 0, 0 ] [ 0, 1, 0 ] [ 1, 1, 1 ]
+**Example 2:** stepsize: 50ns, analyzer: [ I1, I2, I3, I4, O1, O2 ], vector: [ I1, I2, I3, I4 ] = [ 0, 0, 0, 0 ] [ 1, 1, 1, 0 ] [ 0, 0, 1, 1 ]
 
-    $ stimulize -a I1 I2 I3 O1 O2 -v I1 I2 I3 -s 50 -t 000 010 111
+    $ stimulize -a I1 I2 I3 O1 O2 -v I1 I2 I3 -s 50 -t 0000 1110 0011
 
 **Example 3:** print help
     $ stimulize -h
 
 ## References:
-*ELECTRIC*  https://www.staticfreesoft.com/jmanual/
-*IRSIM*     http://opencircuitdesign.com/irsim/reference.html
+
+*ELECTRIC* https://www.staticfreesoft.com/jmanual/
+
+*IRSIM* http://opencircuitdesign.com/irsim/reference.html
+
 *GRAY CODE* https://en.wikipedia.org/wiki/Gray_code
