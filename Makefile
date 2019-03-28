@@ -4,7 +4,11 @@ BIN_DIRECTORY=/usr/local/bin
 MAN_DIRECTORY=/usr/local/share/man
 MAIN=stimulize
 
-ifneq ($(wildcard $(MAN_DIRECTORY)/man1),)
+UNAME_S := $(shell uname -s)
+ifeq ($(UNAME_S),Linux)
+	MAN_DIRECTORY=/usr/local/man/man1
+endif
+ifeq ($(UNAME_S),Darwin)
 	MAN_DIRECTORY=/usr/local/share/man/man1
 endif
 
