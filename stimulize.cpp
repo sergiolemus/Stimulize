@@ -366,32 +366,34 @@ void generateCommands( char** argv, int argc, int a_index, int a_nodes, int v_in
 
 void show_usage()
 {
-    std::cerr << std::endl;
-    std::cerr << "Usage:" << std::endl << std::endl;
-    std::cerr << "stimulize -a {node_name ..} -v {node_name ..} ";
-    std::cerr << "[-s <step_val>] [-t {test_seq ..}]" << std::endl << std::endl;
+    std::cerr << std::endl
+              << "Usage:" << std::endl << std::endl
+              << "stimulize -a {node_name ..} -v {node_name ..} "
+              << "[-s <step_val>] [-t {test_seq ..}]" << std::endl << std::endl
     
-    std::cerr << "Required:" << std::endl << std::endl;;
-    std::cerr << "  -a,--analyzer {node_name ..}          ";
-    std::cerr << "nodes to view on the analyzer window." << std::endl;
-    std::cerr << "  -v,--vector {node_name ..}            ";
-    std::cerr << "nodes to vectorize." << std::endl << std::endl;
+              << "Required:" << std::endl << std::endl
+              << "  -a,--analyzer {node_name ..}          "
+              << "nodes to view on the analyzer window." << std::endl
+              << "  -v,--vector {node_name ..}            "
+              << "nodes to vectorize." << std::endl << std::endl
     
-    std::cerr << "Optional:" << std::endl << std::endl;
-    std::cerr << "  -s,--stepsize <step_val>              ";
-    std::cerr << "set the stepsize to <step_val>, default is 5ns." << std::endl;
-    std::cerr << "  -t,--test {test_seq ..}               ";
-    std::cerr << "binary sequences to test on vector." << std::endl;
-    std::cerr << "                                        ";
-    std::cerr << "default is 0 to (2^[num_of_vector_nodes])-1." << std::endl;
-    std::cerr << std::endl;
+              << "Optional:" << std::endl << std::endl
+              << "  -s,--stepsize <step_val>              "
+              << "set the stepsize to <step_val>, default is 5ns." << std::endl
+              << "  -t,--test {test_seq ..}               "
+              << "binary sequences to test on vector." << std::endl
+              << "                                        "
+              << "default is 0 to (2^[num_of_vector_nodes])-1." << std::endl
+              << std::endl
     
-    std::cerr << "Examples:" << std::endl << std::endl;
-    std::cerr << "  -a A B OUT -v A B" << std::endl;
-    std::cerr << "  stepsize: 5ns, analyzer: [A,B,OUT], vector: [A,B], from [0,0] to [1,1]" << std::endl << std::endl;
-    std::cerr << "  -a I1 I2 I3 O1 O2 -v I1 I2 I3 -s 50 -t 000 010 111" << std::endl;
-    std::cerr << "  stepsize: 50ns, analyzer: [I1,I2,I3,O1,O2], vector: [I1,I2,I3] = [0,0,0] [0,1,0] [1,1,1]" << std::endl;
-    std::cerr << std::endl;
+              << "Examples:" << std::endl << std::endl
+              << "  stepsize: 5ns, analyzer: [A,B,C,OUT], vector: [A,B,C], from [0,0] to [1,1,1]" << std::endl << std::endl
+              << "$ stimulize -a A B C OUT -v A B" << std::endl << std::endl
+              << "  stepsize: 50ns, analyzer: [I0,I1,I2,I3,O0,O1], vector: [I0,I1,I2,I3] = [0,0,0,0] [1,1,1,0] [0,0,1,1] [1,1,1,1]" << std::endl
+              << "$ stimulize -a I0 I1 I2 I3 O0 O1 -v I0 I1 I2 I3 0000  1110  0011 1111 > test.cmd" << std::endl << std::endl
+              << "If this program isinstalled on your system, use " << std::endl
+              << "$ man stimulize"   << std::endl
+              << "for more / better formatted details" << std::endl << std::endl;
 }
 
 int main( int argc, char** argv )
@@ -650,6 +652,9 @@ int main( int argc, char** argv )
     
     if( error )
     {
+        std::cerr << "If this program isinstalled on your system, use " << std::endl
+                  << "$ man stimulize"   << std::endl
+                  << "for more details" << std::endl;
         exit( 1 );
     }
     

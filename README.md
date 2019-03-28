@@ -18,11 +18,26 @@ The default mode is to scroll through inputs using **Gray Code**, changing only 
 
 ## Compile:
 Clone the repository and run **make && make install** from the directory. Special thanks to
-**Joseph** for this convenience. This will compile the program and link it to your **$PATH**
-Depending on your system, *make install* may require administrative privilege.
+**Joseph** for this convenience. This will compile the program and link it to your **$PATH**, and install the man page
+Depending on your system, *make install* may require administrative privileges.
 This program may be maintained and updated on git. You can pull the changes, and re run the same commands to update your system.
 
     $ make && make install
+
+To uninstall the program, run:
+
+    $ make clean && make uninstall
+
+## Man Page:
+Upon runing **make install**, the man page should be copied to your local manpage directory. 
+This program assume the directory is
+    
+    /usr/local/share/man/man1
+
+If that is not the case, you will have to either adjsut your **$MANPATH** or change the make file.
+If everything succeeds you can can now see examples and more detailed information using
+
+    man stimulize
 
 ## Usage:
 
@@ -42,13 +57,18 @@ This program may be maintained and updated on git. You can pull the changes, and
 
 ## Examples:
 
-**Example 1:** stepsize: 5ns, analyzer: [ A, B, C, OUT ], vector: [ A, B, C ], from [ 0, 0, 0 ] to [ 1, 1, 1 ] in *Gray Code* order, and pipe into *test.cmd*
+**Example 1:** Stepsize: default - 5ns, View A,B,C,OUT in the analyzer, vectorize A,B,C as
+input, and step through all combinations in Gray Code order.
 
-    $ stimulize -a A B OUT -v A B > test.cmd
 
-**Example 2:** stepsize: 50ns, analyzer: [ I1, I2, I3, I4, O1, O2 ], vector: [ I1, I2, I3, I4 ] = [ 0, 0, 0, 0 ] [ 1, 1, 1, 0 ] [ 0, 0, 1, 1 ]
+    $ stimulize -a A B C OUT -v A B C
 
-    $ stimulize -a I1 I2 I3 O1 O2 -v I1 I2 I3 -s 50 -t 0000 1110 0011
+**Example 2:** Stepsize: 50ns, View [I0,I1,I2,I3,O0,O1]  in the analyzer, vectorize [I1,I2,I3,I4] as input, and test the specific cases 
+[I0,I1,I2,I3] = [0,0,0,0], [1,1,1,0] [0,0,1,1], [1,1,1,1]
+
+Pipe the output to test.cmd
+
+    $ stimulize -a I0 I1 I2 I3 O0 O1 -v I0 I1 I2 I3 -s 50  -t  0000  1110  0011 1111 > test.cmd
 
 **Example 3:** see stimulize help
 
