@@ -61,14 +61,16 @@ while in this directory.
 
 ## Examples:
 
-**Example 1:** Stepsize: default - 5ns, View A,B,C,OUT in the analyzer, vectorize A,B,C as
-input, and step through all combinations in Gray Code order.
+**Example 1:** Stepsize: default - 5ns, View [A,B,C,OUT] in the analyzer, Vectorize [A,B,C] as
+inputs, and step through all combinations in Gray Code order.
 
 
     $ stimulize -a A B C OUT -v A B C
 
-**Example 2:** Stepsize: 50ns, View [I0,I1,I2,I3,O0,O1]  in the analyzer, vectorize [I1,I2,I3,I4] as input, and test the specific cases 
-[I0,I1,I2,I3] = [0,0,0,0], [1,1,1,0] [0,0,1,1], [1,1,1,1]
+**Example 2:** Stepsize: 50ns, View [I0,I1,I2,I3,O0,O1] in the analyzer, Vectorize [I0,I1,I2,I3] as inputs, and step through the
+specific cases:
+
+[I0,I1,I2,I3] = [0,0,0,0], [1,1,1,0], [0,0,1,1], [1,1,1,1]
 
 Pipe the output to test.cmd
 
