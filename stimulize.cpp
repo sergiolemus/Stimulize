@@ -27,15 +27,16 @@
 
 //./stimulize -a IN_1 IN_2 IN_3 OUT_A OUT_B -v IN_1 IN_2 IN_3 -s 10
 
-//function to convert a binary number to grays number
-//gray number only toggle 1 bit at a time so should give more stable output shapes
+//function to convert a binary number to grays code
+//counting sequentially in gray code only toggles 1 bit at a time so should give more stable output shapes
 unsigned int binaryToGray( unsigned int bnum )
 {
     return ( ( bnum ) ^ ( bnum >> 1 ) );
 }
 
-// FUNCTION TO PRINT THE STATE VECTOR
-void printState( const std::vector<std::string>& inputs, int v_nodes, unsigned int number, std::string sequence )
+// FUNCTION TO INSPECT THE STATE VECTOR AS A COMMENT
+void printState( const std::vector<std::string> &inputs, int v_nodes, unsigned int number,
+                 const std::string &sequence )
 {
     std::string binary = "";
     
@@ -93,6 +94,7 @@ void printState( const std::vector<std::string>& inputs, int v_nodes, unsigned i
 }
 
 // FUNCTION TO GENERATE VECTORIZED INPUTS
+//"DRIVER" that is run by main after error checking
 void generateCommands( char** argv, int argc, int a_index, int a_nodes, int v_index, int v_nodes,
                       int t_index, int t_nodes, bool t, int s_index )
 {
@@ -396,6 +398,7 @@ void show_usage()
               << "for more / better formatted details" << std::endl << std::endl;
 }
 
+//error checks inputs, then passes to "generateCommands"
 int main( int argc, char** argv )
 {
     int analyzer_index = -1;
