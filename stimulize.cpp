@@ -596,7 +596,7 @@ int main( int argc, char** argv )
             flag = "s";
             count = -1;
         }
-        else if( arg[ 0 ] == "-" )
+        else if( arg[ 0 ] == '-' )
         {
             show_usage();
             exit( 1 );
