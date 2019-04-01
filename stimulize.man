@@ -207,6 +207,11 @@ h B3 B2 B1 B0
 .br
 s
 
+.SH Todo's / Known Bugs
+1) Allow test sequences to be written in hex
+.br
+2) Because test sequences are stored as ints, systems with more than 31 inputs are not processed correctly
+
 .SH AUTHOR
 2019 Segio Lemus, Joseph Shaker.
 .br

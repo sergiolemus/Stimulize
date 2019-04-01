@@ -82,6 +82,11 @@ Pipe the output to test.cmd
 
     $ stimulize -a A[3:0] B[3:0] F[3:0] -v A[3:0] B[3:0] -s 50 -t 00000000 11110000 00001111
 
+## Todo's / Known Bugs:
+
+1) Allow test sequences to be written in hex
+2) Because test sequences are stored as ints, systems with more than 31 inputs are not processed correctly
+
 ## References:
 
 *ELECTRIC* https://www.staticfreesoft.com/jmanual/
