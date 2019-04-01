@@ -28,7 +28,7 @@ or
 If no 
 .I stepsize 
 is given, the default is set to 5(ns). If no test sequence is provided, the program will
-automatically step through all combinations of {v_nodes} through Gray's code.
+automatically step through all combinations of {v_nodes} through gray code sequence.
 .br
 .PP
 .TP
@@ -45,8 +45,8 @@ step size, in nanoseconds. If no argument is given, defaults to 5ns
 Test sequency, in binary. You can feed the program a sequence of N-bit binary numbers, where
 N is the number of v_nodes there are. Arguments should be space seperated. 
 .br
-If no sequence is given, the program will step through every N bit combination through Gray's code
-such that only 1 bit changes during each step.
+If no sequence is given, the program will step through every N bit combination through gray code
+sequence such that only 1 bit changes during each step.
 .TP
 .IR \-v " " v_nodes
 List which nodes will be controlled as a vector input to the circuit. Arguments should be space seperated
@@ -55,7 +55,7 @@ List which nodes will be controlled as a vector input to the circuit. Arguments 
 .PP
 .br
 Stepsize: default - 5ns, View [A,B,C,OUT] in the analyzer, Vectorize [A,B,C] as inputs, and step through all combinations in
-Gray Code order.
+gray code order.
 .br
 \fI% stimulize \-a A B C OUT \-v A B C\fR
 .br
