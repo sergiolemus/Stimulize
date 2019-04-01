@@ -423,6 +423,7 @@ int main( int argc, char** argv )
     bool error = false;
     
     //arguments are transfered from argv to argv_v to allow for expansion
+    //count and store how many arguments there are for analyzer nodes, v nodes, etc
     std::vector<std::string> argv_v;
     
     std::regex expand(".*\\[\\d+:\\d+\\]");
@@ -435,6 +436,8 @@ int main( int argc, char** argv )
     }
     argv_v.push_back( argv[ 0 ] );
 
+    //walk through each argument, verify if it is a flag or another argument,
+    //update indicies for analyzer,vector,step,test, etc, and copy all to argv_v
     for( int i = 1; i < argc; i++ )
     {
 
@@ -593,7 +596,7 @@ int main( int argc, char** argv )
             flag = "s";
             count = -1;
         }
-        else if( arg.find( '-' ) != -1 )
+        else if( arg[ 0 ] == "-" )
         {
             show_usage();
             exit( 1 );
@@ -644,6 +647,7 @@ int main( int argc, char** argv )
     
     bool non_binary  = false;
     
+    //if running a custom test sequence, verify it is valid
     if( test )
     {
         if( test_nodes == 0 )
@@ -703,7 +707,7 @@ int main( int argc, char** argv )
     
     if( error )
     {
-        std::cerr << "If this program isinstalled on your system, use " << std::endl
+        std::cerr << "If this program is installed on your system, use " << std::endl
                   << "$ man stimulize"   << std::endl
                   << "for more details" << std::endl;
         exit( 1 );
