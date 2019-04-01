@@ -144,10 +144,7 @@ void generateCommands( char** argv, int argc, int a_index, int a_nodes, int v_in
     
     //default sequence (count through all combinations in gray)
     if( !t )
-    {
-        unsigned int bit = 1;
-        int shift_right = 0;
-        
+    {        
         printState( inputs, v_nodes, 0, "" );
         
         std::cout << "l ";
