@@ -85,7 +85,9 @@ Pipe the output to test.cmd
 ## Todo's / Known Bugs:
 
 1) Allow test sequences to be written in hex
-2) Because test sequences are stored as ints, systems with more than 31 inputs are not processed correctly
+2) Because default test sequences are stored as ints, systems with 64 or more inputs are not processed correctly
+The step to correct this would be to make a function that can take in a raw bool vector and automatically increment
+in binary or gray code but it currently seems unnecessary.
 
 ## References:
 
