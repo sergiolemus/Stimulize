@@ -145,6 +145,7 @@ int generateCommands( const std::vector<std::string> &argv, int a_index, int a_n
     }
     
     //default sequence (count through all combinations in gray)
+    //works by counting up all states as a binary/gray number, then masking and putting in inputs[n]
     if( !t )
     {        
         std::uint_least64_t count_to = 1;
@@ -170,7 +171,7 @@ int generateCommands( const std::vector<std::string> &argv, int a_index, int a_n
         }
         std::cout << std::endl << "s" << std::endl << std::endl;
 
-        //print susequent states
+        //print sequential states states
         for( auto bnum = 1; bnum < count_to; bnum++ )
         {
             auto gnum = binaryToGray( bnum );
@@ -258,6 +259,7 @@ int generateCommands( const std::vector<std::string> &argv, int a_index, int a_n
     }
     
     //custom test sequence
+    //works by explictly maniplating the input_values[n] array
     else
     {
         std::string arg;
@@ -266,7 +268,8 @@ int generateCommands( const std::vector<std::string> &argv, int a_index, int a_n
         arg = std::string( argv[ t_index ] );
         for( int n = 0; n < v_nodes; n++ )
         {
-            input_values[ n ] = arg[ n ] - 48;
+            //convert from ascii representation of "0"/"1" to "0"/"1"
+            input_values[ n ] = arg[ n ] - 0x30;
             
             if( !low && input_values[ n ] == 0 )
             {
