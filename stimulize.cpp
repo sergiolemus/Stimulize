@@ -1,3 +1,4 @@
+#include <cinttypes>
 #include <cstdlib>
 #include <iostream>
 #include <string>
@@ -30,7 +31,8 @@
 
 //function to convert a binary number to grays code
 //counting sequentially in gray code only toggles 1 bit at a time so should give more stable output shapes
-unsigned int binaryToGray( unsigned int bnum )
+template <class T>
+T binaryToGray( T bnum )
 {
     return ( ( bnum ) ^ ( bnum >> 1 ) );
 }
@@ -96,7 +98,7 @@ void printState( const std::vector<std::string> &inputs, int v_nodes, unsigned i
 
 // FUNCTION TO GENERATE VECTORIZED INPUTS
 //"DRIVER" that is run by main after error checking
-void generateCommands( const std::vector<std::string> &argv, int a_index, int a_nodes, 
+int generateCommands( const std::vector<std::string> &argv, int a_index, int a_nodes, 
                        int v_index, int v_nodes, int t_index, int t_nodes, bool t, int s_index )
 {
 
@@ -116,8 +118,6 @@ void generateCommands( const std::vector<std::string> &argv, int a_index, int a_
     
     bool low = false;
     bool high = false;
-    
-    unsigned int count_to = 1 << v_nodes;
     
     if( s_index == -1 )
     {
@@ -147,6 +147,20 @@ void generateCommands( const std::vector<std::string> &argv, int a_index, int a_
     //default sequence (count through all combinations in gray)
     if( !t )
     {        
+        std::uint_least64_t count_to = 1;
+
+        for ( int i = 0; i < v_nodes; i++ )
+        {
+            count_to *= 2;
+        }
+
+        if ( count_to == 0 )
+        {
+            std::cerr << "Too many vectorized inputs" << std::endl;
+            return 1;
+        }
+
+        //print first state
         printState( inputs, v_nodes, 0, "" );
         
         std::cout << "l ";
@@ -156,9 +170,10 @@ void generateCommands( const std::vector<std::string> &argv, int a_index, int a_
         }
         std::cout << std::endl << "s" << std::endl << std::endl;
 
-        for( unsigned int bnum = 1; bnum < count_to; bnum++ )
+        //print susequent states
+        for( auto bnum = 1; bnum < count_to; bnum++ )
         {
-            unsigned int gnum = binaryToGray( bnum );
+            auto gnum = binaryToGray( bnum );
 
             low = false;
             high = false;
@@ -363,6 +378,7 @@ void generateCommands( const std::vector<std::string> &argv, int a_index, int a_
             std::cout << "s" << std::endl << std::endl;
         }
     }
+    return 0;
 }
 
 void show_usage()
@@ -713,8 +729,7 @@ int main( int argc, char** argv )
         exit( 1 );
     }
     
-    generateCommands( argv_v, analyzer_index, analyzer_nodes, vector_index, vector_nodes,
+    return generateCommands( argv_v, analyzer_index, analyzer_nodes, vector_index, vector_nodes,
                      test_index, test_nodes, test, stepsize_index );
     
-    return 0;
 }
