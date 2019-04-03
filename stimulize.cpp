@@ -447,7 +447,7 @@ int main( int argc, char** argv )
     std::vector<std::string> argv_v;
     
     std::regex expand(".*\\[\\d+:\\d+\\]");
-    std::regex number ("\\d+");
+    std::regex number("\\d+");
 
     if( argc == 1 )
     {
@@ -468,7 +468,10 @@ int main( int argc, char** argv )
         if ( std::regex_match( arg, expand ) )
         {
             
-            std::sregex_iterator next(arg.begin(), arg.end(), number);
+            //start looking after the first [ for numbers
+            int bracket_index = arg.find( "[" );
+            std::string search_from = arg.substr( bracket_index );
+            std::sregex_iterator next(search_from.begin(), search_from.end(), number);
             
             std::smatch match = *next;
             int first = std::stoi( match.str() );
@@ -478,8 +481,7 @@ int main( int argc, char** argv )
             
             int second = std::stoi( match.str() );
 
-            std::string name = arg.substr( 0, arg.find("[") );
-
+            std::string name = arg.substr( 0, bracket_index );
             if ( first <= second )
             {
                 for ( int i = first; i <= second; i++ )
