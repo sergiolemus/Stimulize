@@ -76,11 +76,27 @@ Pipe the output to test.cmd
 
     $ stimulize -a I0 I1 I2 I3 O0 O1 -v I0 I1 I2 I3 -s 50  -t  0000  1110  0011 1111 > test.cmd
 
-**Example 3:**        Stepsize: 50ns, View [A3,A2,A1,A0,B3,B2,B1,B0,F3,F2,F1,F0] in the analyzer, Vectorize [A3,A2,A1,A0,B3,B2,B1,B0] as inputs, and step through specific cases:
+**Example 3:** Stepsize: 50ns, View [A3,A2,A1,A0,B3,B2,B1,B0,F3,F2,F1,F0] in the analyzer, Vectorize [A3,A2,A1,A0,B3,B2,B1,B0] as inputs, and step through specific cases:
 
 [A3,A2,A1,A0,B3,B2,B1,B0]=[0,0,0,0,0,0,0,0], [1,1,1,1,0,0,0,0,], [0,0,0,0,1,1,1,1]
 
     $ stimulize -a A[3:0] B[3:0] F[3:0] -v A[3:0] B[3:0] -s 50 -t 00000000 11110000 00001111
+
+**Example 4:** Stepsize: 50ns, View [A3,A2,A1,A0,B3,B2,B1,B0,F3,F2,F1,F0] in the analyzer, Vectorize [A3,A2,A1,A0,B3,B2,B1,B0] as inputs, and step through specific stored in a file "tests"
+
+    $ stimulize -a A[3:0] B[3:0] F[3:0] -v A[3:0] B[3:0] -s 50 -t $(cat tests)
+
+
+CONTENT of tests: (have each argument white space seperated)
+
+    00000000
+    01100110
+    00000000
+    00010101
+    11111111
+    11100111
+    00101110
+    00000000
 
 ## Todo's / Known Bugs:
 
