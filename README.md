@@ -1,16 +1,20 @@
 # Stimulize
 
 ## Purpose:
-The goal of this program is to make a great discomfort something comfortable. The intent is to make *EE457 — Digital Integrated Circuits* easier by means of automating the process of toggling *IRSIM* inputs on *ELECTRIC*. Toggling inputs in *IRSIM* using the built in vecotr commands will not make the boxes, but using commands *h* and *l* will. This program acts as a wrapper to do that easily.
 
-This program can of course also be used to generate command files for terminal *IRSIM*.
 
-This program will take input arguments and can then be piped to *.cmd* file, which can be imported into
-*ELECTRIC* by going to *TOOLS->Simulation (Built-in)->Restore Stimuli From Disk ..*
+This program parses command line arguments to generate  text that can be piped into a *.cmd* file that can be parsed by both terminal *IRSIM* and *GNU Electric IRSIM* to toggle sequences of inputs.
 
-This program sets the analyzer window to the desired nodes you wish to track. Then, it generates a sequence of *IRSIM* commands to toggle a desired set of inputs **n** going through all **(2^n)-1** states. It can also generate *IRSIM* commands for particular test sequence of inputs instead.
+The file can be imported into *ELECTRIC* by going to *TOOLS->Simulation (Built-in)->Restore Stimuli From Disk ..*
 
-The default mode is to scroll through inputs using **Gray Code**, changing only one bit at a time so the outputs are more stable. It will still toggle through all input combinations.
+
+
+
+
+
+This program sets the analyzer window to the desired nodes you wish to track. Then, it generates a sequence of *IRSIM* commands to toggle a desired set of inputs **n** going through all **(2^n)-1** states. It can also generate *IRSIM* commands for custom test sequence of inputs instead.
+
+The default mode is to toggle through inputs using **Gray Code**, changing only one bit at a time so the outputs are more stable. It will still toggle through all input combinations.
 
 **Example 1:** If you have 3 inputs [ A, B, C ], the program will generate commands to toggle them from [ 0, 0, 0 ] to [ 1, 1, 1 ], in **Gray Code** order.
 
